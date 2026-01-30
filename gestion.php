@@ -4,16 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestion des Tâches</title>
-
-    <!-- ✅ Bootstrap local (chez toi : css/bootstrap.css) -->
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <?php
-// gestion.php
-// Stockage JSON dans tache.json (même dossier)
+
 $file = __DIR__ . "/tache.json";
 
-// Créer le fichier s'il n'existe pas
 if (!file_exists($file)) {
     file_put_contents($file, json_encode([], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
@@ -35,11 +31,11 @@ function nettoyer(string $s): string {
 
 $taches = lireTaches($file);
 
-// ----------------- ACTIONS (ADD / EDIT / DELETE) -----------------
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = $_POST["action"] ?? "";
 
-    // Statuts autorisés
+
     $statutsAutorises = ["En cours", "Terminée", "En attente"];
 
     if ($action === "add") {
@@ -103,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// ----------------- MODE ÉDITION (GET ?edit=id) -----------------
+
 $editId = isset($_GET["edit"]) ? (int)$_GET["edit"] : 0;
 $tacheAEditer = null;
 
@@ -116,7 +112,7 @@ if ($editId > 0) {
     }
 }
 
-// Statut actuel pour le select
+x
 $statutActuel = $tacheAEditer["statut"] ?? "En cours";
 ?>
 <body class="bg-light">
@@ -124,7 +120,7 @@ $statutActuel = $tacheAEditer["statut"] ?? "En cours";
 
     <h1 class="text-center fw-bold mb-4">Gestion des Tâches</h1>
 
-    <!-- Formulaire -->
+
     <div class="card shadow-sm mx-auto" style="max-width: 720px;">
         <div class="card-header bg-primary text-white fw-semibold">
             <?php echo $tacheAEditer ? "Modifier une tâche" : "Ajouter une tâche"; ?>
@@ -172,7 +168,7 @@ $statutActuel = $tacheAEditer["statut"] ?? "En cours";
         </div>
     </div>
 
-    <!-- Liste des tâches -->
+
     <h2 class="mt-5 mb-3 fw-bold">Liste des tâches</h2>
 
     <?php if (count($taches) === 0): ?>
@@ -197,7 +193,7 @@ $statutActuel = $tacheAEditer["statut"] ?? "En cours";
                             <?php elseif ($st === "En cours"): ?>
                                 <span class="badge bg-warning text-dark">En cours</span>
                             <?php elseif ($st === "En attente"): ?>
-                                <!-- ✅ Trait jaune comme sur ta maquette -->
+                                
                                 <div style="
                                     width: 18px;
                                     height: 4px;
